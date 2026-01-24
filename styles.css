@@ -528,6 +528,9 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.2rem;
+
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .photos-grid {
