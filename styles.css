@@ -566,3 +566,17 @@
   color: var(--muted);
   font-size: 0.95rem;
 }
+
+.photos-featured {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px; /* controls overall size */
+  margin: 0 auto;
+}
+
+.photos-featured .photo img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
