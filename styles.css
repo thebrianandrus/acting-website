@@ -80,7 +80,12 @@
   .brand-name {
     font-size: 0.95rem;
   }
-  
+
+    .brand-name.active {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  }
+
   /* Nav */
   .nav {
     position: relative;
