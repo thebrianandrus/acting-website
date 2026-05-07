@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brian Andrus</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <style>
+      /* =============================================
+         CAROUSEL STYLES — inlined for self-containment
+         ============================================= */
+
+      .career-updates {
+        padding: 4rem 0;
+      }
+
+      .carousel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.75rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      }
+
+      .carousel-section-title {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: #888;
+        margin: 0;
+      }
+
+      .carousel-nav {
+        display: flex;
+        gap: 8px;
+      }
+
+      .carousel-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        background: #fff;
+        cursor: pointer;
+        font-size: 17px;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.15s, border-color 0.15s;
+        color: #111;
+      }
+
+      .carousel-btn:hover {
+        background: #f5f5f5;
+        border-color: #bbb;
+      }
+
+      .carousel-btn:disabled {
+        opacity: 0.28;
+        cursor: default;
+      }
+
+      .carousel-track-wrapper {
+        overflow: hidden;
+      }
+
+      .carousel-track {
+        display: flex;
+        gap: 16px;
+        transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: transform;
+      }
+
+      .poster-card {
+        flex: 0 0 calc(25% - 12px);
+        min-width: 0;
+        cursor: default;
+      }
+
+      .poster-img-wrap {
+        aspect-ratio: 2 / 3;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        background: #ebebeb;
+      }
+
+      .poster-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .poster-card:hover .poster-img-wrap img {
+        transform: scale(1.04);
+      }
+
+      .poster-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.72) 0%,
+          rgba(0, 0, 0, 0.0) 52%
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        align-items: flex-end;
+        padding: 14px;
+        border-radius: 10px;
+      }
+
+      .poster-card:hover .poster-overlay {
+        opacity: 1;
+      }
+
+      .poster-tagline {
+        color: #fff;
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 1.45;
+        letter-spacing: 0.02em;
+      }
+
+      .poster-meta {
+        margin-top: 11px;
+        padding: 0 2px;
+      }
+
+      .poster-title {
+        font-size: 13px;
+        font-weight: 600;
+        margin: 0 0 3px;
+        color: #111;
+        letter-spacing: 0.01em;
+      }
+
+      .poster-sub {
+        font-size: 11px;
+        color: #999;
+        margin: 0 0 6px;
+        font-weight: 400;
+      }
+
+      .poster-badge {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 2px 8px;
+        border-radius: 4px;
+        background: #f2f2f2;
+        color: #777;
+        border: 1px solid #e8e8e8;
+      }
+
+      .carousel-dots {
+        display: flex;
+        gap: 7px;
+        justify-content: center;
+        margin-top: 1.6rem;
+      }
+
+      .carousel-dots button {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        border: none;
+        background: #ccc;
+        padding: 0;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.2s;
+      }
+
+      .carousel-dots button.active {
+        background: #111;
+        transform: scale(1.4);
+      }
+
+      /* Mobile: 2 per row */
+      @media (max-width: 620px) {
+        .poster-card {
+          flex: 0 0 calc(50% - 8px);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header / Nav -->
+    <header class="site-header" id="top">
+      <div class="container header-inner">
+        <a class="brand" href="#top" aria-label="Brian Andrus home">
+          <span class="brand-name">Brian Andrus</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="nav-menu"
+          >
+            <span class="nav-toggle-lines" aria-hidden="true"></span>
+            <span class="nav-toggle-text">Menu</span>
+          </button>
+
+          <div class="nav-menu" id="nav-menu">
+            <a class="nav-link" href="/media">Media</a>
+            <a class="nav-link" href="/photos">Photos</a>
+            <a class="nav-link" href="/resume">Resume</a>
+            <a class="nav-link" href="/profiles">Profiles</a>
+            <a class="nav-link" href="/agent">Agent</a>
+            <a class="nav-link" href="/contact">Contact</a>
+
+            <div class="nav-social">
+              <a
+                class="nav-link subtle"
+                href="https://www.youtube.com/thebrianandrus"
+                target="_blank"
+                rel="noreferrer"
+                >YouTube</a
+              >
+              <a
+                class="nav-link subtle"
+                href="https://www.instagram.com/thebrianandrus"
+                target="_blank"
+                rel="noreferrer"
+                >Instagram</a
+              >
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-media">
+            <img
+              class="hero-img"
+              src="Brian-Andrus-Headshot.webp"
+              alt="Brian Andrus headshot"
+              loading="eager"
+            />
+          </div>
+
+          <div class="hero-text">
+            <h1 class="hero-title">BRIAN ANDRUS</h1>
+            <p class="hero-subtitle">ACTOR</p>
+            <p class="hero-meta">SAG-AFTRA Eligible</p>
+            <p class="hero-meta">ATLANTA, GA</p>
+
+            <a class="btn" href="/contact">CONTACT</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Career Updates — Carousel -->
+      <section class="section career-updates">
+        <div class="container">
+
+          <div class="carousel-header">
+            <p class="carousel-section-title">Career Updates</p>
+            <div class="carousel-nav">
+              <button class="carousel-btn" id="carousel-prev" aria-label="Previous project" disabled>&#8592;</button>
+              <button class="carousel-btn" id="carousel-next" aria-label="Next project">&#8594;</button>
+            </div>
+          </div>
+
+          <div class="carousel-track-wrapper">
+            <div class="carousel-track" id="carousel-track">
+
+              <article class="poster-card">
+                <div class="poster-img-wrap">
+                  <img src="dinner-in-america.webp" alt="Dinner in America poster" loading="lazy" />
+                  <div class="poster-overlay">
+                    <span class="poster-tagline">Premiered at Sundance 2020 &middot; US Dramatic Competition</span>
+                  </div>
+                </div>
+                <div class="poster-meta">
+                  <h3 class="poster-title">Dinner in America</h3>
+                  <p class="poster-sub">Honey Glaze &middot; Feature Film</p>
+                  <span class="poster-badge">Feature</span>
+                </div>
+              </article>
+
+              <article class="poster-card">
+                <div class="poster-img-wrap">
+                  <img src="cherry.webp" alt="Cherry poster" loading="lazy" />
+                  <div class="poster-overlay">
+                    <span class="poster-tagline">Russo Brothers &middot; Now on Apple TV+</span>
+                  </div>
+                </div>
+                <div class="poster-meta">
+                  <h3 class="poster-title">Cherry</h3>
+                  <p class="poster-sub">Army Recruit #1 &middot; Feature Film</p>
+                  <span class="poster-badge">Feature</span>
+                </div>
+              </article>
+
+              <article class="poster-card">
+                <div class="poster-img-wrap">
+                  <img src="hometown.jpg" alt="Hometown TV pilot poster" loading="lazy" />
+                  <div class="poster-overlay">
+                    <span class="poster-tagline">Shot on location in Weirton, WV &middot; Mad Street Films</span>
+                  </div>
+                </div>
+                <div class="poster-meta">
+                  <h3 class="poster-title">Hometown</h3>
+                  <p class="poster-sub">Billy Piesano &middot; TV Pilot</p>
+                  <span class="poster-badge">TV Pilot</span>
+                </div>
+              </article>
+
+              <article class="poster-card">
+                <div class="poster-img-wrap">
+                  <img src="clouds.webp" alt="NF CLOUDS music video artwork" loading="lazy" />
+                  <div class="poster-overlay">
+                    <span class="poster-tagline">#1 YouTube Trending &middot; 88M+ Views</span>
+                  </div>
+                </div>
+                <div class="poster-meta">
+                  <h3 class="poster-title">NF: CLOUDS</h3>
+                  <p class="poster-sub">Featured &middot; Music Video</p>
+                  <span class="poster-badge">Music Video</span>
+                </div>
+              </article>
+
+              <article class="poster-card">
+                <div class="poster-img-wrap">
+                  <img src="oasis-lx.webp" alt="Oasis LX poster" loading="lazy" />
+                  <div class="poster-overlay">
+                    <span class="poster-tagline">Lead role as Lucas</span>
+                  </div>
+                </div>
+                <div class="poster-meta">
+                  <h3 class="poster-title">Oasis LX</h3>
+                  <p class="poster-sub">Lucas (Lead) &middot; Feature Film</p>
+                  <span class="poster-badge">Lead</span>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+          <div class="carousel-dots" id="carousel-dots" aria-hidden="true"></div>
+
+        </div>
+      </section>
+
+      <!-- Bio -->
+      <section class="section">
+        <div class="container">
+          <div class="section-media">
+            <img
+              class="section-img"
+              src="honey-glaze.webp"
+              alt="Still from Dinner in America"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="section-body">
+            <h2 class="section-title">Short Bio</h2>
+            <p class="section-paragraph">
+              Brian Andrus was born in Rochester Hills, Michigan. He began acting
+              in musical theater at Brandon High School, appearing as Rum Tum
+              Tugger in <em>Cats</em> and as Curly McLain in <em>Oklahoma!</em>.
+              While attending Michigan State University, he worked on films
+              <a href="https://www.imdb.com/title/tt9058654/" target="_blank" rel="noreferrer"
+                >Dinner in America</a
+              >
+              and
+              <a href="https://www.imdb.com/title/tt9130508" target="_blank" rel="noreferrer"
+                >Cherry</a
+              >. After relocating to Atlanta, he booked a role in NF's viral
+              music video
+              <a href="https://www.imdb.com/title/tt14084046" target="_blank" rel="noreferrer"
+                >"CLOUDS"</a
+              >. In 2024, Brian appeared in <em>Hometown</em> (TV pilot) and
+              branded content for the Volkswagen I.D. Buzz. He continues to
+              develop his career in Atlanta.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer contact -->
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <div class="footer-contact">
+            <a class="footer-link" href="mailto:TheBrianAndrus@gmail.com"
+              >TheBrianAndrus@gmail.com</a
+            >
+            <a class="footer-link" href="tel:+12489777424">248.977.7424</a>
+          </div>
+
+          <div class="footer-social">
+            <a
+              class="footer-link subtle"
+              href="https://www.youtube.com/thebrianandrus"
+              target="_blank"
+              rel="noreferrer"
+              >YouTube</a
+            >
+            <a
+              class="footer-link subtle"
+              href="https://www.instagram.com/thebrianandrus"
+              target="_blank"
+              rel="noreferrer"
+              >Instagram</a
+            >
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <script src="script.js"></script>
+
+    <script>
+      // =============================================
+      // CAROUSEL — inlined so it works standalone
+      // Move this block into script.js if preferred
+      // =============================================
+      (function () {
+        var track   = document.getElementById('carousel-track');
+        var prevBtn = document.getElementById('carousel-prev');
+        var nextBtn = document.getElementById('carousel-next');
+        var dotsWrap = document.getElementById('carousel-dots');
+
+        if (!track) return;
+
+        var cards   = Array.from(track.querySelectorAll('.poster-card'));
+        var total   = cards.length;
+        var current = 0;
+
+        function visibleCount() {
+          return window.innerWidth <= 620 ? 2 : 4;
+        }
+
+        function maxIndex() {
+          return Math.max(0, total - visibleCount());
+        }
+
+        function cardWidth() {
+          var gap = 16;
+          return cards[0].offsetWidth + gap;
+        }
+
+        function buildDots() {
+          dotsWrap.innerHTML = '';
+          var max = maxIndex();
+          for (var i = 0; i <= max; i++) {
+            var btn = document.createElement('button');
+            btn.setAttribute('aria-label', 'Go to position ' + (i + 1));
+            if (i === current) btn.classList.add('active');
+            (function (idx) {
+              btn.addEventListener('click', function () {
+                current = idx;
+                render();
+              });
+            })(i);
+            dotsWrap.appendChild(btn);
+          }
+        }
+
+        function render() {
+          var max = maxIndex();
+          if (current > max) current = max;
+
+          track.style.transform = 'translateX(-' + (current * cardWidth()) + 'px)';
+          prevBtn.disabled = current === 0;
+          nextBtn.disabled = current >= max;
+
+          var dotBtns = dotsWrap.querySelectorAll('button');
+          dotBtns.forEach(function (d, i) {
+            d.classList.toggle('active', i === current);
+          });
+        }
+
+        prevBtn.addEventListener('click', function () {
+          if (current > 0) { current--; render(); }
+        });
+
+        nextBtn.addEventListener('click', function () {
+          if (current < maxIndex()) { current++; render(); }
+        });
+
+        // Touch / swipe
+        var touchStartX = 0;
+        track.addEventListener('touchstart', function (e) {
+          touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+        track.addEventListener('touchend', function (e) {
+          var dx = touchStartX - e.changedTouches[0].clientX;
+          if (Math.abs(dx) > 40) {
+            if (dx > 0) nextBtn.click();
+            else prevBtn.click();
+          }
+        });
+
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function () {
+            buildDots();
+            render();
+          }, 120);
+        });
+
+        buildDots();
+        render();
+      })();
+    </script>
+  </body>
+</html>
