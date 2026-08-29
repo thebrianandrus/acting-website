@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PL0LX1CBDF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PL0LX1CBDF');
+</script>
+    <title>Photos | Brian Andrus</title>
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="/styles.css" />
+
+    <style>
+      /* Gallery grid — inherits .photo styling from styles.css */
+      .photo-gallery {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      @media (max-width: 640px) {
+        .photo-gallery {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+      }
+
+      /* Wide cinematic stills — uniform 1904x800 ratio */
+      .photo-gallery .photo {
+        margin: 0;
+        cursor: zoom-in;
+      }
+      .photo-gallery .photo img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1904 / 800;
+        object-fit: cover;
+      }
+
+      /* Lightbox */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.94);
+        cursor: zoom-out;
+      }
+      .lightbox.open {
+        display: flex;
+      }
+      .lightbox img {
+        max-width: 94vw;
+        max-height: 90vh;
+        object-fit: contain;
+      }
+      .lightbox-close,
+      .lightbox-prev,
+      .lightbox-next {
+        position: absolute;
+        background: none;
+        border: 0;
+        color: #fff;
+        opacity: 0.7;
+        cursor: pointer;
+        padding: 16px;
+        line-height: 1;
+        font-family: inherit;
+      }
+      .lightbox-close:hover,
+      .lightbox-prev:hover,
+      .lightbox-next:hover {
+        opacity: 1;
+      }
+      .lightbox-close {
+        top: 8px;
+        right: 12px;
+        font-size: 32px;
+      }
+      .lightbox-prev,
+      .lightbox-next {
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 40px;
+      }
+      .lightbox-prev {
+        left: 4px;
+      }
+      .lightbox-next {
+        right: 4px;
+      }
+      body.lightbox-lock {
+        overflow: hidden;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header / Nav -->
+    <header class="site-header" id="top">
+      <div class="container header-inner">
+        <a class="brand" href="/" aria-label="Brian Andrus home">
+          <span class="brand-name">Brian Andrus</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="nav-menu"
+          >
+            <span class="nav-toggle-lines" aria-hidden="true"></span>
+            <span class="nav-toggle-text">Menu</span>
+          </button>
+
+          <div class="nav-menu" id="nav-menu">
+            <a class="nav-link" href="/media">Media</a>
+            <a class="nav-link active" href="/photos" aria-current="page">Photos</a>
+            <a class="nav-link" href="/resume">Resume</a>
+            <a class="nav-link" href="/profiles">Profiles</a>
+            <a class="nav-link" href="/agent">Agent</a>
+            <a class="nav-link" href="/contact">Contact</a>
+
+            <div class="nav-social">
+              <a
+                class="nav-link subtle"
+                href="https://www.youtube.com/thebrianandrus"
+                target="_blank"
+                rel="noreferrer"
+                >YouTube</a
+              >
+              <a
+                class="nav-link subtle"
+                href="https://www.instagram.com/thebrianandrus"
+                target="_blank"
+                rel="noreferrer"
+                >Instagram</a
+              >
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <div class="section-body" style="grid-column: 1 / -1;">
+            <h1 class="section-title center">Photos</h1>
+            <p class="center" style="margin: 0; color: var(--muted);">
+              Headshots
+            </p>
+          </div>
+
+          <!-- Featured Headshots (Top 3) -->
+          <div class="photos-featured" style="grid-column: 1 / -1;">
+            <figure class="photo">
+              <img
+                src="../Brian-Andrus-Headshot.webp"
+                alt="Brian Andrus headshot 1"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="photo">
+              <img
+                src="../Brian-Andrus-Headshot-2.webp"
+                alt="Brian Andrus headshot 2"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="photo">
+              <img
+                src="../Brian-Andrus-Headshot-3.webp"
+                alt="Brian Andrus headshot 3"
+                loading="lazy"
+              />
+            </figure>
+          </div>
+
+          <div class="divider" style="grid-column: 1 / -1;"></div>
+
+          <!-- Gallery -->
+          <div class="section-body" style="grid-column: 1 / -1;">
+            <h2 class="section-title center">Gallery</h2>
+          </div>
+
+          <div class="photo-gallery" style="grid-column: 1 / -1;">
+            <figure class="photo">
+              <img
+                src="../cherry-still-1.jpg"
+                alt="Brian Andrus in Cherry, still 1"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="photo">
+              <img
+                src="../cherry-still-2.jpg"
+                alt="Brian Andrus in Cherry, still 2"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="photo">
+              <img
+                src="../cherry-still-3.jpg"
+                alt="Brian Andrus in Cherry, still 3"
+                loading="lazy"
+              />
+            </figure>
+
+            <figure class="photo">
+              <img
+                src="../cherry-still-4.jpg"
+                alt="Brian Andrus in Cherry, still 4"
+                loading="lazy"
+              />
+            </figure>
+          </div>
+
+          <div class="divider" style="grid-column: 1 / -1;"></div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <div class="footer-contact">
+            <a class="footer-link" href="mailto:TheBrianAndrus@gmail.com"
+              >TheBrianAndrus@gmail.com</a
+            >
+            <a class="footer-link" href="tel:+12489777424">248.977.7424</a>
+          </div>
+
+          <div class="footer-social">
+            <a
+              class="footer-link subtle"
+              href="https://www.youtube.com/thebrianandrus"
+              target="_blank"
+              rel="noreferrer"
+              >YouTube</a
+            >
+            <a
+              class="footer-link subtle"
+              href="https://www.instagram.com/thebrianandrus"
+              target="_blank"
+              rel="noreferrer"
+              >Instagram</a
+            >
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+      <button class="lightbox-prev" type="button" aria-label="Previous photo">&#8249;</button>
+      <img id="lightbox-img" src="" alt="" />
+      <button class="lightbox-next" type="button" aria-label="Next photo">&#8250;</button>
+      <button class="lightbox-close" type="button" aria-label="Close">&times;</button>
+    </div>
+
+    <script>
+      (function () {
+        var box = document.getElementById("lightbox");
+        var boxImg = document.getElementById("lightbox-img");
+        var items = Array.prototype.slice.call(
+          document.querySelectorAll(".photo-gallery .photo img")
+        );
+        var index = 0;
+
+        function show(i) {
+          index = (i + items.length) % items.length;
+          boxImg.src = items[index].src;
+          boxImg.alt = items[index].alt;
+        }
+
+        function open(i) {
+          show(i);
+          box.classList.add("open");
+          document.body.classList.add("lightbox-lock");
+        }
+
+        function close() {
+          box.classList.remove("open");
+          document.body.classList.remove("lightbox-lock");
+          boxImg.src = "";
+        }
+
+        items.forEach(function (img, i) {
+          img.addEventListener("click", function () {
+            open(i);
+          });
+        });
+
+        box.addEventListener("click", function (e) {
+          if (e.target === box || e.target === boxImg) close();
+        });
+
+        box.querySelector(".lightbox-close").addEventListener("click", close);
+
+        box.querySelector(".lightbox-prev").addEventListener("click", function (e) {
+          e.stopPropagation();
+          show(index - 1);
+        });
+
+        box.querySelector(".lightbox-next").addEventListener("click", function (e) {
+          e.stopPropagation();
+          show(index + 1);
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (!box.classList.contains("open")) return;
+          if (e.key === "Escape") close();
+          if (e.key === "ArrowLeft") show(index - 1);
+          if (e.key === "ArrowRight") show(index + 1);
+        });
+      })();
+    </script>
+
+    <script src="/script.js"></script>
+  </body>
+</html>
+
